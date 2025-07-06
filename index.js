@@ -78,7 +78,7 @@ let addressescsv = [
 	//'https://raw.githubusercontent.com/xusos/sosxu/master/0000000.csv',
 	//'https://raw.githubusercontent.com/xusos/sosxu/master/ip.csv',
 	//'https://raw.githubusercontent.com/xusos/sosxu/master/result.csv',
-	https://raw.githubusercontent.com/xusos/cfipcaiji/refs/heads/main/ip.txt,
+	'https://raw.githubusercontent.com/xusos/cfipcaiji/refs/heads/main/ip.txt',
 ];
 
 let subconverter = "zhuanhuan.cmdl.cc"; //api.v1.mk在线订阅转换后端，目前使用肥羊的订阅转换功能。支持自建psub 可自行搭建https://github.com/bulianglin/psub

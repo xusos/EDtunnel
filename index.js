@@ -6,12 +6,70 @@ let mytoken= 'auto';//快速订阅访问入口, 留空则不启动快速订阅
 // 设置优选地址，不带端口号默认443，不支持非TLS订阅生成
 let addresses = [
 	'time.is',
+	'icook.tw:2053#台湾',
+	'icook.hk#香港1',
+	'cloudflare.cfgo.cc#优选官方',
+	'cfip.xxxxxxxx.tk#官方优选-otc提供',
+	'hk.100366.xyz#香港2',
+	'ali.055500.xyz#香港3',
+	'www.who.int#联合国',
+	'time.cloudflare.com#cloud',
+	'www.visakorea.com#1',
+	'www.digitalocean.com#2',
+	'www.boba88slot.com#3',
+	'www.udemy.com#4',
+	'www.sean-now.com#5',
+	'whatismyipaddress.com#6',
+	'www.visa.com#7',
+	'www.udacity.com#8',
+	'www.wto.org#10',
+	'www.csgo.com#11',
+	'skk.moe#12',
+	'www.visa.com.tw#台湾13',
+	'www.zsu.gov.ua#乌克兰14',
+	'www.glassdoor.com#15',
+	'edtunnel-dgp.pages.dev#16',
+	'www.okcupid.com#17',
+	'download.yunzhongzhuan.com#19',
+	'gur.gov.ua#乌克兰20',
+	'shopify.com#21',
+	'www.shopify.com#22',
+	'log.bpminecraft.com#23',
+	'www.ipget.net#24',
+	'www.visa.com.sg#新加坡25',
+	'www.gov.ua#乌克兰27',
+	'www.gov.se#28',
+	'www.ipaddress.my#29',
+	'www.pcmag.com#30',
+	'alejandracaiccedo.com#31',
+	'www.visa.com.hk#香港32',
+	'www.4chan.org#33',
+	'www.ipchicken.com#洛杉矶34',
+	'www.iplocation.net:2083#35',
+	'www.iakeys.com#36',
+	'iplocation.io#37',
+	'www.d-555.com#38',
+	'www.whatismyip.com#39',
+	'japan.com#40',
+	'www.whoer.net#41',
+	'malaysia.com#42',
+	'www.gco.gov.qa#洛杉矶43',
+	'www.visa.co.jp#日本45',
+	'fbi.gov#46',
+	'www.hugedomains.com#47',
+	'ip.sb#48',
+	'singapore.com#49',
+	'russia.com#50',
+	'www.baipiao.eu.org#51',
+	'sp.rweek.top#CF官方',
+	'hk.rweek.top:2053#香港52'
 ];
 
 // 设置优选地址api接口
 let addressesapi = [
 	//'https://raw.githubusercontent.com/ymyuuu/IPDB/main/bestcf-去掉.txt', //可参考内容格式 自行搭建。
 	//'https://raw.githubusercontent.com/ymyuuu/IPDB/main/bestproxy.txt',
+	'https://raw.githubusercontent.com/xusos/cfipcaiji/refs/heads/main/ip.txt',
 ];
 
 let DLS = 4;//速度下限
@@ -21,7 +79,7 @@ let addressescsv = [
 	//'https://raw.githubusercontent.com/xusos/sosxu/master/0000000.csv',
 	//'https://raw.githubusercontent.com/xusos/sosxu/master/ip.csv',
 	//'https://raw.githubusercontent.com/xusos/sosxu/master/result.csv',
-	'https://raw.githubusercontent.com/xusos/cfipcaiji/refs/heads/main/ip.txt',
+
 ];
 
 let subconverter = "zhuanhuan.cmdl.cc"; //api.v1.mk在线订阅转换后端，目前使用肥羊的订阅转换功能。支持自建psub 可自行搭建https://github.com/bulianglin/psub

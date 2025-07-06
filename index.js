@@ -75,10 +75,10 @@ let addressesapi = [
 let DLS = 4;//速度下限
 let addressescsv = [
 	//iptest测速结果文件。
-	//'https://raw.githubusercontent.com/xusos/sosxu/master/ip00.csv',
-	//'https://raw.githubusercontent.com/xusos/sosxu/master/0000000.csv',
-	//'https://raw.githubusercontent.com/xusos/sosxu/master/ip.csv',
-	//'https://raw.githubusercontent.com/xusos/sosxu/master/result.csv',
+	'https://raw.githubusercontent.com/xusos/sosxu/master/ip00.csv',
+	'https://raw.githubusercontent.com/xusos/sosxu/master/0000000.csv',
+	'https://raw.githubusercontent.com/xusos/sosxu/master/ip.csv',
+	'https://raw.githubusercontent.com/xusos/sosxu/master/result.csv',
 
 ];
 

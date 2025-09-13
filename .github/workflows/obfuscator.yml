@@ -46,7 +46,7 @@ jobs:
             "transformObjectKeys": true,
             "unicodeEscapeSequence": false,
             "target": "browser",
-            "seed": 20
+            "seed": 60
           }
           EOF
 

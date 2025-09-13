@@ -34,19 +34,19 @@ jobs:
           {
             "compact": true,
             "controlFlowFlattening": true,
-            "controlFlowFlatteningThreshold": 0.75,
+            "controlFlowFlatteningThreshold": 0.3,
             "deadCodeInjection": false,
             "identifierNamesGenerator": "hexadecimal",
             "renameGlobals": true,
             "selfDefending": true,
             "stringArray": true,
             "stringArrayEncoding": ["base64"],
-            "stringArrayThreshold": 0.75,
+            "stringArrayThreshold": 0.3,
             "stringArrayRotate": true,
             "transformObjectKeys": true,
             "unicodeEscapeSequence": false,
             "target": "browser",
-            "seed": 42
+            "seed": 20
           }
           EOF
 

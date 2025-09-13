@@ -18,12 +18,15 @@ jobs:
         with:
           node-version: "18"
 
-      - name: 安装最新版本的 javascript-obfuscator
-        run: npm install -g javascript-obfuscator@latest
+      - name: 安装依赖
+        run: |
+          npm install -g javascript-obfuscator@latest terser@latest
         continue-on-error: true
 
-      - name: 检查 javascript-obfuscator 版本
-        run: javascript-obfuscator --version
+      - name: 检查工具版本
+        run: |
+          javascript-obfuscator --version
+          terser --version
 
       - name: 创建混淆配置文件
         run: |
@@ -31,18 +34,17 @@ jobs:
           {
             "compact": true,
             "controlFlowFlattening": true,
-            "controlFlowFlatteningThreshold": 1,
-            "deadCodeInjection": true,
-            "deadCodeInjectionThreshold": 1,
+            "controlFlowFlatteningThreshold": 0.75,
+            "deadCodeInjection": false,
             "identifierNamesGenerator": "hexadecimal",
             "renameGlobals": true,
             "selfDefending": true,
             "stringArray": true,
-            "stringArrayEncoding": ["rc4"],
-            "stringArrayThreshold": 1,
+            "stringArrayEncoding": ["base64"],
+            "stringArrayThreshold": 0.75,
             "stringArrayRotate": true,
             "transformObjectKeys": true,
-            "unicodeEscapeSequence": true,
+            "unicodeEscapeSequence": false,
             "target": "browser",
             "seed": 42
           }
@@ -65,6 +67,7 @@ jobs:
         run: |
           if [ -f _index.js ]; then
             sha256sum _index.js > _index.js.sha256
+            ls -lh _index.js | awk '{print "原始文件大小: " $5}'
           else
             echo "错误: _index.js 不存在" >&2
             exit 1
@@ -73,6 +76,12 @@ jobs:
       - name: 混淆代码
         run: |
           javascript-obfuscator _index.js --output _worker.js --config obfuscator-config.json || { echo "混淆失败" >&2; exit 1; }
+
+      - name: 压缩混淆后的代码
+        run: |
+          terser _worker.js -o _worker.min.js --compress --mangle || { echo "压缩失败" >&2; exit 1; }
+          mv _worker.min.js _worker.js
+          ls -lh _worker.js | awk '{print "混淆并压缩后文件大小: " $5}'
 
       - name: 验证混淆后文件
         run: |
@@ -86,7 +95,7 @@ jobs:
 
       - name: 清理临时文件
         run: |
-          rm -f _index.js obfuscator-config.json
+          rm -f _index.js obfuscator-config.json _index.js.sha256
           echo "临时文件已清理"
 
       - name: 提交更改
@@ -97,7 +106,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "没有文件更改，跳过提交"
           else
-            git commit -m "混淆 _worker.js 文件并生成校验和 (备份: _worker.js.backup.$TIMESTAMP)"
+            git commit -m "混淆并压缩 _worker.js 文件 (备份: _worker.js.backup.$TIMESTAMP)"
             echo "更改已提交"
           fi
 

@@ -16,11 +16,37 @@ jobs:
       - name: 使用 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18" # 更新到更新的 Node.js 版本
+          node-version: "18"
 
-      - name: 安装依赖
-        run: npm install -g javascript-obfuscator
-        continue-on-error: true # 允许依赖安装失败时继续执行，记录错误
+      - name: 安装最新版本的 javascript-obfuscator
+        run: npm install -g javascript-obfuscator@latest
+        continue-on-error: true
+
+      - name: 检查 javascript-obfuscator 版本
+        run: javascript-obfuscator --version
+
+      - name: 创建混淆配置文件
+        run: |
+          cat << EOF > obfuscator-config.json
+          {
+            "compact": true,
+            "controlFlowFlattening": true,
+            "controlFlowFlatteningThreshold": 1,
+            "deadCodeInjection": true,
+            "deadCodeInjectionThreshold": 1,
+            "identifierNamesGenerator": "hexadecimal",
+            "renameGlobals": true,
+            "selfDefending": true,
+            "stringArray": true,
+            "stringArrayEncoding": ["rc4"],
+            "stringArrayThreshold": 1,
+            "stringArrayRotate": true,
+            "transformObjectKeys": true,
+            "unicodeEscapeSequence": true,
+            "target": "browser",
+            "seed": 42
+          }
+          EOF
 
       - name: 创建版本化备份
         run: |
@@ -46,24 +72,7 @@ jobs:
 
       - name: 混淆代码
         run: |
-          javascript-obfuscator _index.js --output _worker.js \
-          --compact true \
-          --control-flow-flattening true \
-          --control-flow-flattening-threshold 1 \
-          --dead-code-injection true \
-          --dead-code-injection-threshold 1 \
-          --identifier-names-generator hexadecimal \
-          --rename-globals true \
-          --self-defending true \
-          --string-array true \
-          --string-array-encoding 'rc4' \
-          --string-array-threshold 1 \
-          --string-array-indexes-enabled true \
-          --string-array-rotate true \
-          --transform-object-keys true \
-          --unicode-escape-sequence true \
-          --target browser \
-          --seed 42 || { echo "混淆失败" >&2; exit 1; }
+          javascript-obfuscator _index.js --output _worker.js --config obfuscator-config.json || { echo "混淆失败" >&2; exit 1; }
 
       - name: 验证混淆后文件
         run: |
@@ -77,7 +86,7 @@ jobs:
 
       - name: 清理临时文件
         run: |
-          rm -f _index.js
+          rm -f _index.js obfuscator-config.json
           echo "临时文件已清理"
 
       - name: 提交更改
